@@ -7,30 +7,27 @@ const app = express();
 
 app.set("view engine", "ejs");
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (req, res) {
-
-
-
   let today = new Date();
 
   let options = {
-      weekday: "long",
-      day: "numeric",
-      month: "long"
+    weekday: "long",
+    day: "numeric",
+    month: "long",
   };
 
+  let day = today.toLocaleDateString("en-US", options);
 
-  let day = today.toLocaleDateString("en-US",options);
-
-
-
-  res.render("list", {
-      kindOfDay: day
-    });
-
+  res.render("list", { kindOfDay: day });
 });
+
+app.post("/",function(req,res){
+  let item = req.body.newItem;
+  console.log(item);
+})
+
 
 app.listen(3000, function () {
   console.log("Server started on port 3000");
